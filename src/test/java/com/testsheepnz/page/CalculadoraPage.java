@@ -10,5 +10,6 @@ public class CalculadoraPage {
     public static By btnclear = By.id("clearButton");
 
     public static By respuesta = By.id("numberAnswerField");
-    //public static By nro1 = By.id("number1Field");
+    public static By error = By.id("errorMsgField");
+    public static By integerSelect = By.id("integerSelect");
 }

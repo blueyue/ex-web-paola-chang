@@ -41,10 +41,51 @@ public class CalculadoraDef {
         CalcularStep calcularStep = new CalcularStep(driver);
         calcularStep.typeNro1(nro1);
         calcularStep.typeNro2(nro2);
-        //calcularStep.seleccionarOperador(0);
+        calcularStep.seleccionarOperador(0);
+        calcularStep.chkbox();
         calcularStep.calcular();
     }
 
+    @Cuando("resto el nro {int} y el {int}")
+    public void restoElNroYEl(int arg0, int arg1) {
+        CalcularStep calcularStep = new CalcularStep(driver);
+        calcularStep.typeNro1(arg0);
+        calcularStep.typeNro2(arg1);
+        calcularStep.seleccionarOperador(1);
+        calcularStep.calcular();
+    }
+
+    @Cuando("multiplico el nro {int} y el {int}")
+    public void multiplicoElNroYEl(int nro1, int nro2) {
+        CalcularStep calcularStep = new CalcularStep(driver);
+        calcularStep.typeNro1(nro1);
+        calcularStep.typeNro2(nro2);
+        calcularStep.seleccionarOperador(2);
+        calcularStep.calcular();
+    }
+
+    @Cuando("divido el nro {int} y el {int}")
+    public void dividoElNroYEl(int nro1, int nro2) {
+        CalcularStep calcularStep = new CalcularStep(driver);
+        calcularStep.typeNro1(nro1);
+        calcularStep.typeNro2(nro2);
+        calcularStep.seleccionarOperador(3);
+        calcularStep.calcular();
+    }
+
+    /*@Cuando("resto el nro {string} y el {int}")
+    public void restoElNroYEl(String nro1, int nro2) {
+        
+    }*/
+    @Cuando("resto el nro {string} y el {int} de forma erronea")
+    public void restoElNroYElDeFormaErronea(String nro1, int nro2) {
+
+        CalcularStep calcularStep = new CalcularStep(driver);
+        calcularStep.typeNro1(nro1);
+        calcularStep.typeNro2(nro2);
+        calcularStep.seleccionarOperador(1);
+        calcularStep.calcular();
+    }
     /*public ResultadoStep resultadoStep  (WebDriver driver){
         return new ResultadoStep(driver);
     }*/
@@ -56,6 +97,7 @@ public class CalculadoraDef {
     public void obtendréComoRespuesta(int respuesta) {
         String valor = calcularStep(driver).respuesta();
         Assertions.assertEquals(String.valueOf(respuesta),valor);
+        calcularStep(driver).limpiar();
     }
 
 
@@ -65,12 +107,14 @@ public class CalculadoraDef {
         this.scenario.attach(evidencia,"image/png","evidencia");
     }
 
-    @Cuando("resto el nro {int} y el {int}")
-    public void restoElNroYEl(int arg0, int arg1) {
-        CalcularStep calcularStep = new CalcularStep(driver);
-        calcularStep.typeNro1(arg0);
-        calcularStep.typeNro2(arg1);
-        calcularStep.seleccionarOperador(1);
-        calcularStep.calcular();
+
+    @Entonces("obtendré como respuesta error")
+    public void obtendréComoRespuestaError() {
+        String valor = calcularStep(driver).errormsg();
+        Assertions.assertEquals("Number 1 is not a number",valor);
+        calcularStep(driver).limpiar();
     }
+
+
+
 }
