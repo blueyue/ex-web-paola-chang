@@ -16,12 +16,6 @@
       Cuando resto el nro 5 y el 3
       Entonces obtendré como respuesta 2
 
-    Escenario: Operando con el operador multiplicacion exitosamente
-      Dado que me encuentro en la pagina de la calculadora
-      Cuando multiplico el nro 2 y el 3
-      Entonces obtendré como respuesta 6
 
-    Escenario: Operando con el operador division exitosamente
-      Dado que me encuentro en la pagina de la calculadora
-      Cuando divido el nro 22 y el 11
-      Entonces obtendré como respuesta 2
+
+

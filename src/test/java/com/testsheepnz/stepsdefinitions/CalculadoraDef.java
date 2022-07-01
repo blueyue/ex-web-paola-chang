@@ -1,6 +1,7 @@
 package com.testsheepnz.stepsdefinitions;
 
 
+import com.testsheepnz.page.CalculadoraPage;
 import com.testsheepnz.steps.CalcularStep;
 import com.testsheepnz.steps.ResultadoStep;
 import io.cucumber.java.Before;
@@ -40,17 +41,21 @@ public class CalculadoraDef {
         CalcularStep calcularStep = new CalcularStep(driver);
         calcularStep.typeNro1(nro1);
         calcularStep.typeNro2(nro2);
-        calcularStep.seleccionarOperador(0);
+        //calcularStep.seleccionarOperador(0);
         calcularStep.calcular();
     }
 
-    public ResultadoStep resultadoStep  (WebDriver driver){
+    /*public ResultadoStep resultadoStep  (WebDriver driver){
         return new ResultadoStep(driver);
+    }*/
+
+    public CalcularStep calcularStep (WebDriver driver){
+        return new CalcularStep(driver);
     }
     @Entonces("obtendré como respuesta {int}")
     public void obtendréComoRespuesta(int respuesta) {
-        String valor = resultadoStep(driver).respuesta();
-        Assertions.assertEquals("5",valor);
+        String valor = calcularStep(driver).respuesta();
+        Assertions.assertEquals(String.valueOf(respuesta),valor);
     }
 
 
@@ -58,5 +63,14 @@ public class CalculadoraDef {
     public void screenshot(){
         byte[] evidencia = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
         this.scenario.attach(evidencia,"image/png","evidencia");
+    }
+
+    @Cuando("resto el nro {int} y el {int}")
+    public void restoElNroYEl(int arg0, int arg1) {
+        CalcularStep calcularStep = new CalcularStep(driver);
+        calcularStep.typeNro1(arg0);
+        calcularStep.typeNro2(arg1);
+        calcularStep.seleccionarOperador(1);
+        calcularStep.calcular();
     }
 }
